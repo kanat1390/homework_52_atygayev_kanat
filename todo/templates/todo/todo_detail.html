@@ -9,9 +9,11 @@
 </head>
 
 <body>
-    {{ todo.description }}
-    {{ todo.get_status_display }}
-    {{ todo.date }}
+    <p>
+        {{ todo.description }}
+        {{ todo.get_status_display }}
+        {{ todo.date }}
+    <p></p><a href="{% url 'todo:todo_list' %}">Назад</a></p>
 </body>
 
 </html>
