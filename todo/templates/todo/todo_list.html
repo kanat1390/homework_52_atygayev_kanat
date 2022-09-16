@@ -12,7 +12,8 @@
 
 <body>
     {% for todo in todo_list %}
-    <p>{{ todo.description }}</p>
+    <p>{{ todo.description }} {{todo.status}}</p>
+    <a href="{% url 'todo:todo_detail' %}?pk={{todo.pk}}">Подробнее</a>
     {% endfor %}
 </body>
 
