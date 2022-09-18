@@ -1,9 +1,17 @@
-from todo.models import Todo 
+from todo.models import Todo, STATUS_CHOICES
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
+from typing import List, Dict
+
 
 def get_all_todos() -> QuerySet:
    return  Todo.objects.all()
 
 def get_todo_by_pk(pk:str or int) -> Todo:
    return get_object_or_404(Todo, pk=pk)
+
+def get_status_choices() -> List:
+   return [status_tuble[1] for  status_tuble in STATUS_CHOICES]
+
+def create_todo_task(todo: Dict):
+   Todo.objects.create(**todo)

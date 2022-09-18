@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from todo.services import todo_services
+from todo.utils import todo_utils
 
 def todo_list(request):
     todo_list = todo_services.get_all_todos()
@@ -15,3 +16,20 @@ def todo_detail(request):
         'todo': todo,
     }
     return render(request, 'todo/todo_detail.html', context)
+
+def todo_create(request):
+    if request.method == 'POST':
+        todo = {
+            'description': request.POST.get('description'),
+            'status': request.POST.get('status'),
+            'date': todo_utils.check_form_date_field(request.POST.get('date'))
+        }
+        todo_services.create_todo_task(todo)
+        return redirect('todo:todo_list')
+    statuses = todo_services.get_status_choices()
+    context = {
+        'statuses': statuses
+    }
+    return render(request, 'todo/todo_create.html', context)
+    
+    

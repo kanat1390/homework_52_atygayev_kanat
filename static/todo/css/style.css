@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
-.app-title{
+.app-title a{
+    text-decoration: None;
     color:#3289CE;
 }
