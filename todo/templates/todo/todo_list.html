@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@
                             {% if todo.date %}
                             {{ todo.date.day }}.{{ todo.date.month }}.{{ todo.date.year }}
                             {% else %}
-                            Lfnf yt ecnfyjdktyf
+                            Нет срока
                             {% endif %}
                             {% if todo.status == "N" %}
                             <span class="badge bg-primary">{{ todo.get_status_display }}</span>
