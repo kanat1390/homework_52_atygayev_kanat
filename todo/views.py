@@ -10,13 +10,6 @@ def todo_list(request):
     }
     return render(request, 'todo/todo_list.html', context)
 
-def todo_detail(request):
-    pk = request.GET.get('pk')
-    todo = todo_services.get_todo_by_pk(pk)
-    context = {
-        'todo': todo,
-    }
-    return render(request, 'todo/todo_detail.html', context)
 
 def todo_create(request):
     if request.method == 'POST':
@@ -37,7 +30,6 @@ def todo_update(request, pk):
     todo = todo_services.get_todo_by_pk(pk)
     if request.method == 'POST':
         form = TodoForm(request.POST, instance=todo)
-        print(request.POST)
         if form.is_valid():
             form.save()
             return redirect('todo:todo_list')
@@ -48,5 +40,15 @@ def todo_update(request, pk):
         'statuses': statuses,
     }
     return render(request, 'todo/todo_update.html', context)
+
+def todo_delete(request, pk):
+    todo = todo_services.get_todo_by_pk(pk)
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('todo:todo_list')
+    context = {
+        'todo': todo, 
+    }
+    return render(request, 'todo/todo_delete.html', context)
     
     

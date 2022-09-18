@@ -20,17 +20,11 @@
         <header>
             <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
             <div class="w-50 p-3 m-auto d-flex justify-content-end">
-                <a class="btn btn-primary" href="/todos/create/">Добавить</a>
+                <a class="btn btn-primary" href="/todos/create/" style="visibility: hidden;">Добавить</a>
             </div>
         </header>
         <div class="w-50 p-3 m-auto todos">
             <ul class="list-group">
-                {%if not todo_list %}
-                <li class="list-group-item d-flex">
-                    <p class="fs-5 text-muted">Ваш список задач пуст</p>
-                </li>
-                {% endif %}
-                {% for todo in todo_list %}
                 <li class="list-group-item d-flex">
                     <div class="p-2 w-100 todos-item-text">
                         <div class="text-muted mb-2" style="font-size:20px;">
@@ -49,19 +43,23 @@
                         </div>
                         <p class="fs-5">{{todo.description}}</p>
                     </div>
-                    <div class=" p-2 flex-shrink-1 d-flex justify-content-between todos-item-btns">
-                        <div class="todos-actions-btn">
-                            <a href="{% url 'todo:todo_update' todo.pk %}">
-                                <img src="{% static 'todo/images/icons/edit.svg' %}" alt="edit-todo" /></a>
-                        </div>
-                        <div class="todos-actions-btn">
-                            <a href="{% url 'todo:todo_delete' todo.pk %}">
-                                <img src="{% static 'todo/images/icons/delete.svg' %}" alt="delete-todo" />
-                            </a>
-                        </div>
+                </li>
+                <li class="list-group-item d-flex" style="border-bottom: None;">
+                    <div class="p-2 w-100 todos-item-text">
+                        <h5>Вы действительно желаете удалить запись?</h5>
                     </div>
                 </li>
-                {% endfor %}
+                <li class="list-group-item d-flex">
+                    <div class="p-2 w-100 todos-item-text">
+                        <form action="{% url 'todo:todo_delete' todo.pk %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="confirm" hidden>
+                            <button type="submit" class="btn btn-primary" style="min-width: 100px;">Да</button>
+                            <a href="{% url 'todo:todo_list' %}" class="btn btn-primary"
+                                style="min-width: 100px;">Нет</a>
+                        </form>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
