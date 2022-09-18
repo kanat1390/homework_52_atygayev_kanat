@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from todo.services import todo_services
 from todo.utils import todo_utils
+from .forms import TodoForm
 
 def todo_list(request):
     todo_list = todo_services.get_all_todos()
@@ -31,5 +32,21 @@ def todo_create(request):
         'statuses': statuses
     }
     return render(request, 'todo/todo_create.html', context)
+
+def todo_update(request, pk):
+    todo = todo_services.get_todo_by_pk(pk)
+    if request.method == 'POST':
+        form = TodoForm(request.POST, instance=todo)
+        print(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('todo:todo_list')
+
+    statuses = todo_services.get_status_choices()
+    context = {
+        'todo': todo,
+        'statuses': statuses,
+    }
+    return render(request, 'todo/todo_update.html', context)
     
     

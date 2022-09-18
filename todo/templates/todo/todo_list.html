@@ -52,8 +52,8 @@
                     </div>
                     <div class=" p-2 flex-shrink-1 d-flex justify-content-between todos-item-btns">
                         <div class="todos-actions-btn">
-                            <a href="/todos/edit/?pk={{ todo.pk }}">
-                                <img src="{% static 'todo/images/icons/edit.svg' %}" alt="delete-todo" /></a>
+                            <a href="{% url 'todo:todo_update' todo.pk %}">
+                                <img src="{% static 'todo/images/icons/edit.svg' %}" alt="edit-todo" /></a>
                         </div>
                         <div class="todos-actions-btn">
                             <a href="todos/remove/?pk={{ todo.pk }}">

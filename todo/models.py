@@ -14,3 +14,7 @@ class Todo(models.Model):
 
     def __str__(self):
         return f'{self.description} - {self.status}'
+    
+    def get_choice(self, choice):
+        return [c[0] for c in STATUS_CHOICES if c == choice]
+

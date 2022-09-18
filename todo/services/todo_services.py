@@ -11,7 +11,7 @@ def get_todo_by_pk(pk:str or int) -> Todo:
    return get_object_or_404(Todo, pk=pk)
 
 def get_status_choices() -> List:
-   return [status_tuble[1] for  status_tuble in STATUS_CHOICES]
+   return STATUS_CHOICES
 
 def create_todo_task(todo: Dict):
    Todo.objects.create(**todo)

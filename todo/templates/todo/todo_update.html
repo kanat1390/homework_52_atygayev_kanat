@@ -21,34 +21,41 @@
             <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
         </header>
         <div class="w-50 p-3 m-auto todos">
-            <form action="" method="POST">
+            <form action="{% url 'todo:todo_update' todo.pk %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="description" class="form-label">Описание задачи</label>
-                    <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                    <textarea type="text" class="form-control" id="description"
+                        name="description">{{todo.description}}</textarea>
                 </div>
                 <div class="mb-3">
                     {% for status in statuses %}
+                    {% if status.1 == todo.get_status_display %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="{{status.0}}" name="status" id="status"
+                            checked="checked">
+                        <label class="form-check-label" for="status">
+                            {{status.1}}
+                        </label>
+                    </div>
+                    {% else %}
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="{{status.0}}" name="status" id="status">
                         <label class="form-check-label" for="status">
                             {{status.1}}
                         </label>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    <label for="date" class="form-label">Дата завершения</label>
-                    <input type="date" name="date" />
+                    <label for="date" class="form-label">Дата завершения {{todo.date}}</label>
+                    <input type="date" name="date" value="{{ todo.date|date:'Y-m-d'}}" />
                 </div>
                 <button type="submit" class="btn btn-primary">Создать</button>
             </form>
         </div>
     </div>
-    <!-- {% for todo in todo_list %}
-    <p>{{ todo.description }} {{todo.status}}</p>
-    <a href="{% url 'todo:todo_detail' %}?pk={{todo.pk}}">Подробнее</a>
-    {% endfor %} -->
 </body>
 
 </html>
