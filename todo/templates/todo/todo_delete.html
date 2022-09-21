@@ -1,68 +1,46 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'base.html' %}
+{% block navigation %}
+<div class="w-50 p-3 m-auto d-flex justify-content-start">
+    <a class="btn btn-secondary" href="{% url 'todo:todo_detail' todo.pk %}">Назад</a>
+</div>
+{% endblock navigation %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo list page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'todo/css/style.css' %}">
-</head>
-
-<body>
-    <div class="container-sm mt-5">
-        <header>
-            <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
-            <div class="w-50 p-3 m-auto d-flex justify-content-start">
-                <a class="btn btn-secondary" href="{% url 'todo:todo_detail' todo.pk %}">Назад</a>
+{% block content %}
+<ul class="list-group">
+    <li class="list-group-item d-flex">
+        <div class="p-2 w-100 todos-item-text">
+            <div class="text-muted mb-2" style="font-size:20px;">
+                {% if todo.date %}
+                {{ todo.date.day }}.{{ todo.date.month }}.{{ todo.date.year }}
+                {% else %}
+                Нет срока
+                {% endif %}
+                {% if todo.status == "N" %}
+                <span class="badge bg-primary">{{ todo.get_status_display }}</span>
+                {% elif todo.status == "C"%}
+                <span class="badge bg-secondary">{{ todo.get_status_display }}</span>
+                {% else %}
+                <span class="badge bg-success">{{ todo.get_status_display }}</span>
+                {% endif %}
             </div>
-        </header>
-        <div class="w-50 p-3 m-auto todos">
-            <ul class="list-group">
-                <li class="list-group-item d-flex">
-                    <div class="p-2 w-100 todos-item-text">
-                        <div class="text-muted mb-2" style="font-size:20px;">
-                            {% if todo.date %}
-                            {{ todo.date.day }}.{{ todo.date.month }}.{{ todo.date.year }}
-                            {% else %}
-                            Нет срока
-                            {% endif %}
-                            {% if todo.status == "N" %}
-                            <span class="badge bg-primary">{{ todo.get_status_display }}</span>
-                            {% elif todo.status == "C"%}
-                            <span class="badge bg-secondary">{{ todo.get_status_display }}</span>
-                            {% else %}
-                            <span class="badge bg-success">{{ todo.get_status_display }}</span>
-                            {% endif %}
-                        </div>
-                        <p class="fs-5">{{todo.description}}</p>
-                    </div>
-                </li>
-                <li class="list-group-item d-flex" style="border-bottom: None;">
-                    <div class="p-2 w-100 todos-item-text">
-                        <h5>Вы действительно желаете удалить запись?</h5>
-                    </div>
-                </li>
-                <li class="list-group-item d-flex">
-                    <div class="p-2 w-100 todos-item-text">
-                        <form action="{% url 'todo:todo_delete' todo.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input type="text" name="confirm" hidden>
-                            <button type="submit" class="btn btn-danger" style="min-width: 100px;">Да</button>
-                            <a href="{% url 'todo:todo_detail' todo.pk %}" class="btn btn-secondary"
-                                style="min-width: 100px;">Нет</a>
-                        </form>
-                    </div>
-                </li>
-            </ul>
+            <p class="fs-5">{{todo.description}}</p>
         </div>
-    </div>
-</body>
-
-</html>
+    </li>
+    <li class="list-group-item d-flex" style="border-bottom: None;">
+        <div class="p-2 w-100 todos-item-text">
+            <h5>Вы действительно желаете удалить запись?</h5>
+        </div>
+    </li>
+    <li class="list-group-item d-flex">
+        <div class="p-2 w-100 todos-item-text">
+            <form action="{% url 'todo:todo_delete' todo.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="confirm" hidden>
+                <button type="submit" class="btn btn-danger" style="min-width: 100px;">Да</button>
+                <a href="{% url 'todo:todo_detail' todo.pk %}" class="btn btn-secondary"
+                    style="min-width: 100px;">Нет</a>
+            </form>
+        </div>
+    </li>
+</ul>
+{% endblock content %}
