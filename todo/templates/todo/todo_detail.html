@@ -20,7 +20,7 @@
         <header>
             <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
             <div class="w-50 p-3 m-auto d-flex justify-content-start">
-                <a class="btn btn-secondary" href="{% url 'todo:todo_detail' todo.pk %}">Назад</a>
+                <a class="btn btn-secondary" href="{% url 'todo:todo_list' %}">Назад</a>
             </div>
         </header>
         <div class="w-50 p-3 m-auto todos">
@@ -41,23 +41,25 @@
                             <span class="badge bg-success">{{ todo.get_status_display }}</span>
                             {% endif %}
                         </div>
+                        <h4>Название задачи:</h4>
                         <p class="fs-5">{{todo.description}}</p>
+                        <h4>Описание задачи:</h4>
+                        {% if todo.text %}
+                        <p class="fs-5">{{todo.text}}</p>
+                        {% else %}
+                        <p class="fs-5">Описание отсутствует</p>
+                        {% endif %}
                     </div>
-                </li>
-                <li class="list-group-item d-flex" style="border-bottom: None;">
-                    <div class="p-2 w-100 todos-item-text">
-                        <h5>Вы действительно желаете удалить запись?</h5>
-                    </div>
-                </li>
-                <li class="list-group-item d-flex">
-                    <div class="p-2 w-100 todos-item-text">
-                        <form action="{% url 'todo:todo_delete' todo.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input type="text" name="confirm" hidden>
-                            <button type="submit" class="btn btn-danger" style="min-width: 100px;">Да</button>
-                            <a href="{% url 'todo:todo_detail' todo.pk %}" class="btn btn-secondary"
-                                style="min-width: 100px;">Нет</a>
-                        </form>
+                    <div class=" p-2 flex-shrink-1 d-flex justify-content-between todos-item-btns">
+                        <div class="todos-actions-btn">
+                            <a href="{% url 'todo:todo_update' todo.pk %}">
+                                <img src="{% static 'todo/images/icons/edit.svg' %}" alt="edit-todo" /></a>
+                        </div>
+                        <div class="todos-actions-btn">
+                            <a href="{% url 'todo:todo_delete' todo.pk %}">
+                                <img src="{% static 'todo/images/icons/delete.svg' %}" alt="delete-todo" />
+                            </a>
+                        </div>
                     </div>
                 </li>
             </ul>

@@ -19,8 +19,8 @@
     <div class="container-sm mt-5">
         <header>
             <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
-            <div class="w-50 p-3 m-auto d-flex justify-content-end">
-                <a class="btn btn-primary" href="/todos/create/">Добавить</a>
+            <div class="w-50 p-3 m-auto d-flex justify-content-start">
+                <a class="btn btn-primary" href="{% url 'todo:todo_create' %}">Добавить новую задачу</a>
             </div>
         </header>
         <div class="w-50 p-3 m-auto todos">
@@ -47,18 +47,8 @@
                             <span class="badge bg-success">{{ todo.get_status_display }}</span>
                             {% endif %}
                         </div>
-                        <p class="fs-5">{{todo.description}}</p>
-                    </div>
-                    <div class=" p-2 flex-shrink-1 d-flex justify-content-between todos-item-btns">
-                        <div class="todos-actions-btn">
-                            <a href="{% url 'todo:todo_update' todo.pk %}">
-                                <img src="{% static 'todo/images/icons/edit.svg' %}" alt="edit-todo" /></a>
-                        </div>
-                        <div class="todos-actions-btn">
-                            <a href="{% url 'todo:todo_delete' todo.pk %}">
-                                <img src="{% static 'todo/images/icons/delete.svg' %}" alt="delete-todo" />
-                            </a>
-                        </div>
+                        <p class="fs-5"><a href="{% url 'todo:todo_detail' todo.pk %}"
+                                class="link-dark">{{todo.description}}</a></p>
                     </div>
                 </li>
                 {% endfor %}

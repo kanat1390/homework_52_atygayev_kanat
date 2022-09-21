@@ -19,14 +19,21 @@
     <div class="container-sm mt-5">
         <header>
             <h1 class="text-center app-title"><a href="{% url 'todo:todo_list' %}">Todo App</a></h1>
+            <div class="w-50 p-3 m-auto d-flex justify-content-start">
+                <a class="btn btn-secondary" href="{% url 'todo:todo_detail' todo.pk %}">Назад</a>
+            </div>
         </header>
         <div class="w-50 p-3 m-auto todos">
             <form action="{% url 'todo:todo_update' todo.pk %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="description" class="form-label">Описание задачи</label>
+                    <label for="description" class="form-label">Название задачи</label>
                     <textarea type="text" class="form-control" id="description"
                         name="description">{{todo.description}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Описание задачи</label>
+                    <textarea type="text" class="form-control" id="text" name="text"></textarea>
                 </div>
                 <div class="mb-3">
                     {% for status in statuses %}
