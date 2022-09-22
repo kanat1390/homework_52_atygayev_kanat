@@ -17,7 +17,7 @@
     <label for="status" class="form-label">Статус</label>
     {{form.status}}
     <label for="date" class="form-label">Срок выполнения(y-m-d)</label>
-    {{form.date}}
+    <p> <input type="date" id="date" name="date" class="form-control due-date" value="{{todo.date|date:'Y-m-d'}}"></p>
     <button class="btn btn-primary mt-3" type="submit">Создать</button>
 </form>
 {% endblock content %}
