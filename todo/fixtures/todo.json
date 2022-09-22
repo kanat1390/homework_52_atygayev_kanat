@@ -3,27 +3,50 @@
     "model": "todo.todo",
     "pk": 1,
     "fields": {
-        "description": "Купить новую квартиру",
+        "description": "Стать хорошим программистом",
         "status": "P",
-        "date": "2023-06-19"
+        "text": "<p>Для этого нужно каждый день уделять время для этого дела<img alt=\"smiley\" src=\"http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/smiley/images/regular_smile.png\" style=\"height:23px; width:23px\" title=\"smiley\" /></p>",
+        "date": "2022-12-31"
     }
 },
 {
     "model": "todo.todo",
     "pk": 2,
     "fields": {
-        "description": "Стать хорошим программистом",
-        "status": "P",
-        "date": "2023-06-19"
+        "description": "Поехать на Камп Ноу",
+        "status": "N",
+        "text": "<p>Сьездить на матч Барселона-Реал.Это было бы круто!</p>",
+        "date": "2023-06-13"
     }
 },
 {
     "model": "todo.todo",
     "pk": 3,
     "fields": {
-        "description": "Сделать домашнюю работу 52",
+        "description": "Купить вторую квартиру",
+        "status": "P",
+        "text": "<p>Это обязательно будет в ближайшее время</p>",
+        "date": "2023-06-13"
+    }
+},
+{
+    "model": "todo.todo",
+    "pk": 4,
+    "fields": {
+        "description": "Написать приложение по Data центрам",
+        "status": "N",
+        "text": "<p>Скоро начну!<img alt=\"cool\" src=\"http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/smiley/images/shades_smile.png\" style=\"height:23px; width:23px\" title=\"cool\" /></p>",
+        "date": "2022-11-01"
+    }
+},
+{
+    "model": "todo.todo",
+    "pk": 5,
+    "fields": {
+        "description": "Записаться на курс программирования",
         "status": "C",
-        "date": "2022-09-19"
+        "text": "",
+        "date": "2022-05-23"
     }
 },
 {
@@ -282,8 +305,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$390000$925rDj3FypSmzVr8QZsSPi$tqqOXsRKJw9s5vacVYyJ7JMcTa7MJmUcX/RAW7sn7VI=",
-        "last_login": null,
+        "password": "pbkdf2_sha256$390000$0YZsJYR1HTAPSBls98hx3E$V5woXZQwelOnDXP80tw9ZosGSAydNpabFX0lCrij2g0=",
+        "last_login": "2022-09-22T16:44:26.540Z",
         "is_superuser": true,
         "username": "root",
         "first_name": "",
@@ -291,7 +314,7 @@
         "email": "root@gmail.com",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2022-09-19T14:40:39.235Z",
+        "date_joined": "2022-09-22T16:43:58.939Z",
         "groups": [],
         "user_permissions": []
     }
