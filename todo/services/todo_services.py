@@ -5,7 +5,7 @@ from typing import List, Dict
 
 
 def get_all_todos() -> QuerySet:
-   return  Todo.objects.all().order_by('-date')
+   return  Todo.objects.all().order_by('date')
 
 def get_todo_by_pk(pk:str or int) -> Todo:
    return get_object_or_404(Todo, pk=pk)

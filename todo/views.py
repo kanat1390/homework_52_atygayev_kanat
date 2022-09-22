@@ -13,32 +13,25 @@ def todo_list(request):
 
 
 def todo_create(request):
-    if request.method == 'POST':
-        todo = {
-            'description': request.POST.get('description'),
-            'status': request.POST.get('status'),
-            'date': todo_utils.check_form_date_field(request.POST.get('date'))
-        }
-        todo_services.create_todo_task(todo)
+    form = TodoForm(request.POST)
+    if form.is_valid():
+        form.save()
         return redirect('todo:todo_list')
-    statuses = todo_services.get_status_choices()
+    
     context = {
-        'statuses': statuses
+        'form': form
     }
     return render(request, 'todo/todo_create.html', context)
 
 def todo_update(request, pk):
     todo = todo_services.get_todo_by_pk(pk)
-    if request.method == 'POST':
-        form = TodoForm(request.POST, instance=todo)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('todo:todo_detail', kwargs={'pk':todo.pk}))
-
-    statuses = todo_services.get_status_choices()
+    form = TodoForm(request.POST or None, instance=todo)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse('todo:todo_detail', kwargs={'pk':todo.pk}))
     context = {
-        'todo': todo,
-        'statuses': statuses,
+        'todo':todo,
+        'form':form,
     }
     return render(request, 'todo/todo_update.html', context)
 
